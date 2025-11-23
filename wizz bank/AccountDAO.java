@@ -35,10 +35,10 @@ public class AccountDAO {
             return true;
 
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
-
 
     public static void loadAccountsForCustomer(Customer c, int customerId) {
 
@@ -81,7 +81,7 @@ public class AccountDAO {
                         continue;
                 }
 
-                // Preserve account number from DB
+                
                 acc.accountNumber = accNum;
                 c.addAccount(acc);
             }
@@ -91,24 +91,14 @@ public class AccountDAO {
         }
     }
 
-
+    
     private static int getCustomerId(Customer c) {
-        String sql = "SELECT customer_id FROM customers WHERE first_name=? AND last_name=? AND username=?";
+        String sql = "SELECT customer_id FROM customers WHERE username=?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, c.getFirstName());
-            ps.setString(2, c.getLastName());
-
-            // Must match username uniquely
-            if (c instanceof IndividualCustomer ic) {
-                ps.setString(3, ic.getNationalId());
-            } else if (c instanceof BusinessCustomer bc) {
-                ps.setString(3, bc.getTaxNumber());
-            } else {
-                ps.setString(3, "");
-            }
+            ps.setString(1, c.getUsername());
 
             ResultSet rs = ps.executeQuery();
 
@@ -117,8 +107,10 @@ public class AccountDAO {
             }
 
         } catch (Exception e) {
-            return -1;
+            e.printStackTrace();
         }
+
         return -1;
     }
 }
+

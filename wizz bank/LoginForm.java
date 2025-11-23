@@ -59,6 +59,9 @@ public class LoginForm extends JFrame {
             Customer customer = AuthController.login(username, password);
 
             if (customer != null) {
+               
+                customer.setUsername(username);
+                
                 JOptionPane.showMessageDialog(this, "Login Successful!");
                 new CustomerDashboard(customer).setVisible(true);
                 dispose();

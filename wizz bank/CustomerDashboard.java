@@ -14,7 +14,7 @@ public class CustomerDashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JLabel header = new JLabel("WIZZ BANK DASHBOARD", SwingConstants.CENTER);
+        JLabel header = new JLabel("WIZZ BANK", SwingConstants.CENTER);
         header.setFont(new Font("SansSerif", Font.BOLD, 22));
         header.setOpaque(true);
         header.setBackground(new Color(0,102,204));
